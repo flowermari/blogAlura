@@ -67,37 +67,15 @@
              height: 220px;
         }
 
-        /* --- ESTILO DOS BOTÕES DE REAÇÃO --- */
-        .reacoes {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .btn-interacao {
-            background-color: #ffffff;
+  
+        .botao-curtir {
+            background-color: white;
             border: 2px solid #4B0082;
-            border-radius: 20px;
             padding: 8px 16px;
             font-size: 1rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
-        }
-
-        /* Cor quando o botão Curtir for ativado */
-        .btn-interacao.ativo-like {
-            background-color: #4B0082;
-            color: #ffffff;
-        }
-
-        /* Cor quando o botão Deslike for ativado */
-        .btn-interacao.ativo-dislike {
-            background-color: #ff4d4d;
-            border-color: #ff4d4d;
-            color: #ffffff;
+            border-radius: 5px;
+            margin-top: 15px;
         }
 
     </style>
@@ -123,34 +101,32 @@
                 Boas-vindas ao meu novo blog! Aqui vou compartilhar dicas de maquiagem e moda.
             </p>
 
-            <!-- ÁREA COM OS DOIS BOTÕES -->
-            <div class="reacoes">
-                <button id="botaoCurtir" class="btn-interacao" onclick="clicouCurtir()">
-                    <span>❤️</span> Curtir
-                </button>
-                <button id="botaoDeslike" class="btn-interacao" onclick="clicouDeslike()">
-                    <span>💔</span> Deslike
-                </button>
-            </div>
+            
+            <button id="botao-reacao" class="botao-curtir" onclick="reagirPost()">🤍 Curtir (0)</button>
         </article>
     </div>
 
-    <!-- SCRIPT DA PRIMEIRA INTERAÇÃO (AULA 8) -->
     <script>
-        // Seleciona os botões usando o id
-        const botaoCurtir = document.getElementById('botaoCurtir');
-        const botaoDeslike = document.getElementById('botaoDeslike');
 
-        function clicouCurtir() {
-            // Se clicar em curtir, ativa o curtir e remove o deslike
-            botaoCurtir.classList.toggle('ativo-like');
-            botaoDeslike.classList.remove('ativo-dislike');
-        }
+        let estaCurtido = false;
+        
+        // Buscamos o botão pelo ID
+        let botaoReacao = document.getElementById("botao-reacao");
 
-        function clicouDeslike() {
-            // Se clicar em deslike, ativa o deslike e remove o curtir
-            botaoDeslike.classList.toggle('ativo-dislike');
-            botaoCurtir.classList.remove('ativo-like');
+        function reagirPost() {
+            if (estaCurtido == false) {
+               
+                botaoReacao.textContent = "👍 Curtido (1)";
+                botaoReacao.style.backgroundColor = "#EE82EE";
+                botaoReacao.style.color = "white";
+                estaCurtido = true;
+            } else {
+                
+                botaoReacao.textContent = "🤍 Curtir (0)";
+                botaoReacao.style.backgroundColor = "white";
+                botaoReacao.style.color = "black";
+                estaCurtido = false;
+            }
         }
     </script>
 

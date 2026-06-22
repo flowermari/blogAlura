@@ -8,7 +8,7 @@
 
         body {
             font-family: 'Times New Roman', Times, serif;
-            background-color: #FFC0CB;
+            background-color: #FFF0F5;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -67,7 +67,6 @@
              height: 220px;
         }
 
-        /* BOTÕES RETANGULARES SIMPLES DA AULA */
         .area-interacao {
             display: flex;
             gap: 15px;
@@ -109,7 +108,6 @@
                 Boas-vindas ao meu novo blog! Aqui vou compartilhar dicas de maquiagem e moda.
             </p>
 
-            <!-- DOIS BOTÕES RETANGULARES COM SEUS RESPECTIVOS CONTADORES -->
             <div class="area-interacao">
                 <button id="btn-coracao" class="botao-retangulo" alt="Botao de Coracao" onclick="clicouCoracao()">
                     ❤️ <span id="qtd-coracao">0</span>
@@ -122,34 +120,26 @@
         </article>
     </div>
 
-    <!-- LÓGICA DE CLICAR, DESCLICAR E CONTAR OS LIKES (PADRÃO ALURA) -->
     <script>
-        // Variáveis de controle para saber se já foi clicado (falso no começo)
         let coracaoAtivo = false;
         let likeAtivo = false;
 
-        // Variáveis para guardar a quantidade numérica de cliques
         let totalCoracoes = 0;
         let totalLikes = 0;
 
-        // Elementos que vão mostrar os números na tela
         let textoCoracao = document.getElementById("qtd-coracao");
         let textoLike = document.getElementById("qtd-like");
         
-        // Elementos dos botões para mudar a cor de fundo
         let botaoCoracao = document.getElementById("btn-coracao");
         let botaoLike = document.getElementById("btn-like");
 
-        // Função do Botão de Coração
         function clicouCoracao() {
             if (coracaoAtivo == false) {
-                // CLICOU: Soma 1 no contador e muda a cor para destacar
                 totalCoracoes = totalCoracoes + 1;
                 textoCoracao.textContent = totalCoracoes;
-                botaoCoracao.style.backgroundColor = "#EE82EE"; // Fundo colorido
+                botaoCoracao.style.backgroundColor = "#E6E6FA"; // Fundo colorido
                 coracaoAtivo = true;
             } else {
-                // DESCLICOU: Subtrai 1 do contador e volta o fundo para branco
                 totalCoracoes = totalCoracoes - 1;
                 textoCoracao.textContent = totalCoracoes;
                 botaoCoracao.style.backgroundColor = "#ffffff"; 
@@ -157,16 +147,13 @@
             }
         }
 
-        // Função do Botão de Like
         function clicouLike() {
             if (likeAtivo == false) {
-                // CLICOU: Soma 1 no contador e muda a cor para destacar
                 totalLikes = totalLikes + 1;
                 textoLike.textContent = totalLikes;
-                botaoLike.style.backgroundColor = "#EE82EE"; // Fundo colorido
+                botaoLike.style.backgroundColor = "#E6E6FA"; // Fundo colorido
                 likeAtivo = true;
             } else {
-                // DESCLICOU: Subtrai 1 do contador e volta o fundo para branco
                 totalLikes = totalLikes - 1;
                 textoLike.textContent = totalLikes;
                 botaoLike.style.backgroundColor = "#ffffff"; 

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu blog</title>
     <style>
-
         body {
             font-family: 'Times New Roman', Times, serif;
             background-color: #FFF0F5;
@@ -43,12 +42,16 @@
         .post {
             color: #1a202c;
             line-height: 1.6;
+            margin-bottom: 40px; 
+            background: white; 
+            padding: 20px;
+            border-radius: 8px;
         }
 
-        .post h2 {
+        .post h3 {
             color: #1a365d;
             font-size: 2rem;
-            margin: 0 0 15px 0;
+            margin: 15px 0;
         }
 
         .post .author {
@@ -65,6 +68,7 @@
         img {
              width: 220px;
              height: 220px;
+             object-fit: cover;
         }
 
         .area-interacao {
@@ -79,14 +83,12 @@
             padding: 10px 20px;
             font-size: 1.1rem;
             cursor: pointer;
-            border-radius: 0px; /* Totalmente retangular como na aula */
+            border-radius: 0px; 
             display: inline-flex;
             align-items: center;
             gap: 8px;
         }
-
     </style>
-
 </head>
 <body>
 
@@ -97,7 +99,7 @@
             <p>Vamos compartilhar conhecimentos de beleza</p>
         </header>
 
-
+        
         <article class="post">
             <img src="imgmoda1.png" alt="logotipo de maquiagem e moda: um livro aberto de onde emerge maquiagens e coisas fashions brilhante, cercado por pinceis, paletas, revistas. Cores em tons de rosa e branco.">
             <h3>Meu primeiro post</h3>
@@ -105,66 +107,66 @@
             <p class="content">
                 Boas-vindas ao meu novo blog! Aqui vou compartilhar dicas de maquiagem e moda.
             </p>
-
-            <article class="post">
-    <img src="closetmake.png" alt="Uma penteadeira de luxo superiluminada estilo camarim, exibindo uma coleção de maquiagens diversas impecavelmente organizadas em suportes de acrílico sobre uma bancada de mármore..">
-    <h3>Meu Segundo Post</h3>
-    <div class="author">Por: Maria Flor</div>
-    <p class="content">
-        Vamos aprender a usar pinceis e makes basicas.
-    </p>
-</article>
-
+            
+          
             <div class="area-interacao">
-                <button id="btn-coracao" class="botao-retangulo" alt="Botao de Coracao" onclick="clicouCoracao()">
-                    ❤️ <span id="qtd-coracao">0</span>
+                <button class="botao-retangulo" onclick="clicouCoracao(this)">
+                    ❤️ <span>0</span>
                 </button>
-                
-                <button id="btn-like" class="botao-retangulo" alt="Botao de Like" onclick="clicouLike()">
-                    👍 <span id="qtd-like">0</span>
+                <button class="botao-retangulo" onclick="clicouLike(this)">
+                    👍 <span>0</span>
                 </button>
             </div>
         </article>
+
+        
+        <article class="post">
+            <img src="closetmake.png" alt="Uma penteadeira de luxo superiluminada estilo camarim, exibindo uma coleção de maquiagens diversas impecavelmente organizadas em suportes de acrílico sobre uma bancada de mármore.">
+            <h3>Meu Segundo Post</h3>
+            <div class="author">Por: Maria Flor</div>
+            <p class="content">
+                Vamos aprender a usar pinceis e makes basicas.
+            </p>
+
+            
+            <div class="area-interacao">
+                <button class="botao-retangulo" onclick="clicouCoracao(this)">
+                    ❤️ <span>0</span>
+                </button>
+                <button class="botao-retangulo" onclick="clicouLike(this)">
+                    👍 <span>0</span>
+                </button>
+            </div>
+        </article>
+
     </div>
 
     <script>
-        let coracaoAtivo = false;
-        let likeAtivo = false;
+        function clicouCoracao(botao) {
+           
+            let textoContador = botao.querySelector("span");
+            let total = parseInt(textoContador.textContent);
 
-        let totalCoracoes = 0;
-        let totalLikes = 0;
-
-        let textoCoracao = document.getElementById("qtd-coracao");
-        let textoLike = document.getElementById("qtd-like");
-        
-        let botaoCoracao = document.getElementById("btn-coracao");
-        let botaoLike = document.getElementById("btn-like");
-
-        function clicouCoracao() {
-            if (coracaoAtivo == false) {
-                totalCoracoes = totalCoracoes + 1;
-                textoCoracao.textContent = totalCoracoes;
-                botaoCoracao.style.backgroundColor = "#E6E6FA"; // Fundo colorido
-                coracaoAtivo = true;
+            
+            if (botao.style.backgroundColor !== "rgb(230, 230, 250)") { // #E6E6FA em RGB
+                textoContador.textContent = total + 1;
+                botao.style.backgroundColor = "#E6E6FA"; 
             } else {
-                totalCoracoes = totalCoracoes - 1;
-                textoCoracao.textContent = totalCoracoes;
-                botaoCoracao.style.backgroundColor = "#ffffff"; 
-                coracaoAtivo = false;
+                textoContador.textContent = total - 1;
+                botao.style.backgroundColor = "#ffffff"; 
             }
         }
 
-        function clicouLike() {
-            if (likeAtivo == false) {
-                totalLikes = totalLikes + 1;
-                textoLike.textContent = totalLikes;
-                botaoLike.style.backgroundColor = "#E6E6FA"; // Fundo colorido
-                likeAtivo = true;
+        function clicouLike(botao) {
+            let textoContador = botao.querySelector("span");
+            let total = parseInt(textoContador.textContent);
+
+            if (botao.style.backgroundColor !== "rgb(230, 230, 250)") {
+                textoContador.textContent = total + 1;
+                botao.style.backgroundColor = "#E6E6FA"; 
             } else {
-                totalLikes = totalLikes - 1;
-                textoLike.textContent = totalLikes;
-                botaoLike.style.backgroundColor = "#ffffff"; 
-                likeAtivo = false;
+                textoContador.textContent = total - 1;
+                botao.style.backgroundColor = "#ffffff"; 
             }
         }
     </script>

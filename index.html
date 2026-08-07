@@ -1,175 +1,365 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu blog</title>
-    <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            background-color: #FFF0F5;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog de Maria Flor — Entusiasta em café</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap');
 
-        .container {
-            width: 100%;
-            max-width: 800px;
-        }
+  :root {
+    --bg: #F7F1E7;
+    --surface: #FFFFFF;
+    --text: #2B1B14;
+    --text-muted: #6B5544;
+    --accent: #8B3A3A;
+    --accent-soft: #EFE1CB;
+    --border: #E1D3BA;
+    --focus: #8B3A3A;
+    color-scheme: light;
+  }
 
-        header {
-            background-color:#4B0082; 
-            border: 3px solid #EE82EE; 
-            color: #ffffff;
-            text-align: center;
-            padding: 30px 20px;
-            margin-bottom: 30px;
-        }
+  html.dark {
+    --bg: #1B120C;
+    --surface: #241811;
+    --text: #F3E9DA;
+    --text-muted: #C7AF93;
+    --accent: #E3B25C;
+    --accent-soft: #2E2013;
+    --border: #3D2B1E;
+    --focus: #E3B25C;
+    color-scheme: dark;
+  }
 
-        header h1 {
-            margin: 0 0 10px 0;
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
+  * { box-sizing: border-box; }
 
-        header p {
-            margin: 0;
-            font-size: 1.1rem;
-        }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
 
-        .post {
-            color: #1a202c;
-            line-height: 1.6;
-            margin-bottom: 40px; 
-            background: white; 
-            padding: 20px;
-            border-radius: 8px;
-        }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Work Sans', system-ui, sans-serif;
+    line-height: 1.55;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
 
-        .post h3 {
-            color: #1a365d;
-            font-size: 2rem;
-            margin: 15px 0;
-        }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; margin: 0; }
 
-        .post .author {
-            color: #4a5568;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
+  a { color: inherit; }
 
-        .post .content {
-            font-size: 1.1rem;
-            color: #2d3748;
-        }
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.75rem 1.25rem;
+    z-index: 100;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .skip-link:focus { left: 0; }
 
-        img {
-             width: 220px;
-             height: 220px;
-             object-fit: cover;
-        }
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
 
-        .area-interacao {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
+  /* HEADER */
+  header.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem clamp(1.25rem, 5vw, 3rem);
+    border-bottom: 1px solid var(--border);
+  }
 
-        .botao-retangulo {
-            background-color: #ffffff;
-            border: 2px solid #4B0082;
-            padding: 10px 20px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            border-radius: 0px; 
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-    </style>
+  .site-title { font-size: 1.15rem; font-weight: 600; }
+
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.45rem 0.85rem;
+    cursor: pointer;
+    color: var(--text);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .theme-toggle:hover { border-color: var(--accent); }
+  .theme-toggle svg { width: 18px; height: 18px; }
+
+  /* HERO */
+  .hero {
+    padding: clamp(2.5rem, 6vw, 4rem) clamp(1.25rem, 5vw, 3rem) clamp(2rem, 4vw, 3rem);
+    max-width: 44rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 4.5vw, 2.9rem);
+    line-height: 1.15;
+  }
+
+  .hero p {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  /* POSTS */
+  main { padding: 0 clamp(1.25rem, 5vw, 3rem) 4rem; }
+
+  main h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .post-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .post-body {
+    padding: 1.15rem 1.25rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .post-body h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .post-body p.excerpt {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    flex: 1;
+    margin: 0 0 1rem;
+  }
+
+  .post-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.85rem;
+  }
+
+  .vote-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 999px;
+    padding: 0.4rem 0.7rem;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .vote-btn:hover { border-color: var(--accent); }
+  .vote-btn svg { width: 16px; height: 16px; }
+
+  .vote-btn[aria-pressed="true"].like { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .vote-btn[aria-pressed="true"].dislike { background: var(--text-muted); border-color: var(--text-muted); color: #fff; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  footer.site-footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem clamp(1.25rem, 5vw, 3rem);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-align: center;
+  }
+</style>
 </head>
 <body>
 
-    <div class="container">
+<a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
 
-        <header>
-            <h1>Blog da Flor</h1>
-            <p>Vamos compartilhar conhecimentos de beleza</p>
-        </header>
+<header class="site-header">
+  <span class="site-title">Blog de Maria Flor</span>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Ativar modo escuro">
+    <svg id="toggleIcon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.6"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 1.5v2"/><path d="M10 16.5v2"/><path d="M18.5 10h-2"/><path d="M3.5 10h-2"/><path d="M15.6 4.4l-1.4 1.4"/><path d="M5.8 14.2l-1.4 1.4"/><path d="M15.6 15.6l-1.4-1.4"/><path d="M5.8 5.8L4.4 4.4"/></g></svg>
+    <span id="themeToggleLabel">Modo escuro</span>
+  </button>
+</header>
 
-        
-        <article class="post">
-            <img src="imgmoda1.png" alt="logotipo de maquiagem e moda: um livro aberto de onde emerge maquiagens e coisas fashions brilhante, cercado por pinceis, paletas, revistas. Cores em tons de rosa e branco.">
-            <h3>Meu primeiro post</h3>
-            <div class="author">Por: Maria Flor</div>
-            <p class="content">
-                Boas-vindas ao meu novo blog! Aqui vou compartilhar dicas de maquiagem e moda.
-            </p>
-            
-          
-            <div class="area-interacao">
-                <button class="botao-retangulo" onclick="clicouCoracao(this)">
-                    ❤️ <span>0</span>
-                </button>
-                <button class="botao-retangulo" onclick="clicouLike(this)">
-                    👍 <span>0</span>
-                </button>
-            </div>
-        </article>
+<section class="hero">
+  <h1>Blog de Maria Flor, entusiasta em café</h1>
+  <p>Anotações sobre grãos, métodos de preparo e receitas para quem também ama uma boa xícara de café.</p>
+</section>
 
-        
-        <article class="post">
-            <img src="closetmake.png" alt="Uma penteadeira de luxo superiluminada estilo camarim, exibindo uma coleção de maquiagens diversas impecavelmente organizadas em suportes de acrílico sobre uma bancada de mármore.">
-            <h3>Meu Segundo Post</h3>
-            <div class="author">Por: Maria Flor</div>
-            <p class="content">
-                Vamos aprender a usar pinceis e makes basicas.
-            </p>
+<main id="conteudo">
+  <h2>Posts</h2>
+  <div class="posts-grid" id="postsGrid"></div>
+</main>
 
-            
-            <div class="area-interacao">
-                <button class="botao-retangulo" onclick="clicouCoracao(this)">
-                    ❤️ <span>0</span>
-                </button>
-                <button class="botao-retangulo" onclick="clicouLike(this)">
-                    👍 <span>0</span>
-                </button>
-            </div>
-        </article>
+<footer class="site-footer">
+  <p>Blog de Maria Flor — trabalho escolar, feito com foco em acessibilidade.</p>
+</footer>
 
-    </div>
+<script>
+(function () {
+  "use strict";
 
-    <script>
-        function clicouCoracao(botao) {
-           
-            let textoContador = botao.querySelector("span");
-            let total = parseInt(textoContador.textContent);
+  var root = document.documentElement;
+  var toggleBtn = document.getElementById('themeToggle');
+  var toggleLabel = document.getElementById('themeToggleLabel');
+  var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-            
-            if (botao.style.backgroundColor !== "rgb(230, 230, 250)") { // #E6E6FA em RGB
-                textoContador.textContent = total + 1;
-                botao.style.backgroundColor = "#E6E6FA"; 
-            } else {
-                textoContador.textContent = total - 1;
-                botao.style.backgroundColor = "#ffffff"; 
-            }
-        }
+  function applyTheme() {
+    root.classList.toggle('dark', isDark);
+    toggleBtn.setAttribute('aria-pressed', String(isDark));
+    toggleBtn.setAttribute('aria-label', isDark ? 'Ativar modo claro' : 'Ativar modo escuro');
+    toggleLabel.textContent = isDark ? 'Modo claro' : 'Modo escuro';
+  }
+  applyTheme();
 
-        function clicouLike(botao) {
-            let textoContador = botao.querySelector("span");
-            let total = parseInt(textoContador.textContent);
+  toggleBtn.addEventListener('click', function () {
+    isDark = !isDark;
+    applyTheme();
+  });
 
-            if (botao.style.backgroundColor !== "rgb(230, 230, 250)") {
-                textoContador.textContent = total + 1;
-                botao.style.backgroundColor = "#E6E6FA"; 
-            } else {
-                textoContador.textContent = total - 1;
-                botao.style.backgroundColor = "#ffffff"; 
-            }
-        }
-    </script>
+  var posts = [
+    {
+      id: 'cappuccino-matinal',
+      title: 'Cappuccino matinal: o ritual da manhã',
+      excerpt: 'Começar o dia com um cappuccino cremoso e bem tirado transforma a rotina em um momento especial de pausa e aconchego.',
+      img: 'https://images.pexels.com/photos/34287070/pexels-photo-34287070.jpeg',
+      alt: 'Mão segurando uma xícara de cappuccino com arte na espuma sobre pires escuro em mesa de madeira, ao lado de um prato com acompanhamento',
+      likes: 12,
+      dislikes: 1
+    },
+    {
+      id: 'cafeterias',
+      title: 'A experiência nas cafeterias',
+      excerpt: 'Mais do que a bebida em si, o ambiente charmoso de uma boa cafeteria e a apresentação do café renovam as energias do dia.',
+      img: 'https://images.pexels.com/photos/29115797/pexels-photo-29115797.jpeg',
+      alt: 'Vista superior de uma xícara de café com latte art em uma mesa redonda de mármore de cafeteria',
+      likes: 9,
+      dislikes: 0
+    },
+    {
+      id: 'compartilhar',
+      title: 'Café para compartilhar',
+      excerpt: 'O café também é sobre conexão: momentos especiais reunidos ao redor de uma mesa repleta de xícaras, sobremesas e boa conversa.',
+      img: 'https://images.pexels.com/photos/14399249/pexels-photo-14399249.jpeg',
+      alt: 'Visão aérea de pessoas reunidas ao redor de uma mesa de madeira em cafeteria com xícaras de café e doces',
+      likes: 15,
+      dislikes: 2
+    },
+    {
+      id: 'latteart',
+      title: 'Latte art com caldas e desenhos',
+      excerpt: 'Além de vaporizar o leite, utilizar caldas e palitos de precisão permite criar desenhos geométricos e florais incríveis na espuma.',
+      img: 'https://images.pexels.com/photos/27860686/pexels-photo-27860686.jpeg',
+      alt: 'Visão superior centralizada de uma xícara de café com desenho floral detalhado feito com calda sobre a espuma',
+      likes: 20,
+      dislikes: 1
+    }
+  ];
+
+  var grid = document.getElementById('postsGrid');
+
+  function thumbUpIcon() {
+    return '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7 8.5V17H4.5A1.5 1.5 0 0 1 3 15.5v-5A1.5 1.5 0 0 1 4.5 9H7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 8.5l3.2-6a1.6 1.6 0 0 1 3 .7v3.3H14a2 2 0 0 1 2 2.4l-1 5A2 2 0 0 1 13 17H7" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+  }
+  function thumbDownIcon() {
+    return '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M13 11.5V3h2.5A1.5 1.5 0 0 1 17 4.5v5a1.5 1.5 0 0 1-1.5 1.5H13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M13 11.5l-3.2 6a1.6 1.6 0 0 1-3-.7V13.5H6a2 2 0 0 1-2-2.4l1-5A2 2 0 0 1 7 4.5h6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+  }
+
+  posts.forEach(function (post) {
+    post.vote = null;
+
+    var card = document.createElement('article');
+    card.className = 'post-card';
+    card.setAttribute('aria-labelledby', 'title-' + post.id);
+
+    card.innerHTML =
+      '<img src="' + post.img + '" alt="' + post.alt + '" loading="lazy">' +
+      '<div class="post-body">' +
+        '<h3 id="title-' + post.id + '">' + post.title + '</h3>' +
+        '<p class="excerpt">' + post.excerpt + '</p>' +
+        '<div class="post-footer" role="group" aria-label="Avaliar o post ' + post.title + '">' +
+          '<button type="button" class="vote-btn like" data-vote="like" aria-pressed="false">' +
+            thumbUpIcon() + '<span class="like-count">' + post.likes + '</span>' +
+          '</button>' +
+          '<button type="button" class="vote-btn dislike" data-vote="dislike" aria-pressed="false">' +
+            thumbDownIcon() + '<span class="dislike-count">' + post.dislikes + '</span>' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+
+    grid.appendChild(card);
+
+    var likeBtn = card.querySelector('.vote-btn.like');
+    var dislikeBtn = card.querySelector('.vote-btn.dislike');
+    var likeCountEl = card.querySelector('.like-count');
+    var dislikeCountEl = card.querySelector('.dislike-count');
+
+    function render() {
+      likeBtn.setAttribute('aria-pressed', String(post.vote === 'like'));
+      dislikeBtn.setAttribute('aria-pressed', String(post.vote === 'dislike'));
+      likeCountEl.textContent = post.likes;
+      dislikeCountEl.textContent = post.dislikes;
+      likeBtn.setAttribute('aria-label', 'Curtir o post ' + post.title + '. ' + post.likes + (post.likes === 1 ? ' curtida' : ' curtidas') + (post.vote === 'like' ? ', você curtiu' : ''));
+      dislikeBtn.setAttribute('aria-label', 'Descurtir o post ' + post.title + '. ' + post.dislikes + (post.dislikes === 1 ? ' descurtida' : ' descurtidas') + (post.vote === 'dislike' ? ', você descurtiu' : ''));
+    }
+
+    likeBtn.addEventListener('click', function () {
+      if (post.vote === 'like') { post.likes -= 1; post.vote = null; }
+      else { if (post.vote === 'dislike') { post.dislikes -= 1; } post.likes += 1; post.vote = 'like'; }
+      render();
+    });
+
+    dislikeBtn.addEventListener('click', function () {
+      if (post.vote === 'dislike') { post.dislikes -= 1; post.vote = null; }
+      else { if (post.vote === 'like') { post.likes -= 1; } post.dislikes += 1; post.vote = 'dislike'; }
+      render();
+    });
+
+    render();
+  });
+})();
+</script>
 
 </body>
 </html>
